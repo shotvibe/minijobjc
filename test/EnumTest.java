@@ -14,4 +14,29 @@ public class EnumTest extends TestCase {
 		assertTrue(red == Color.RED);
 		assertTrue(red != blue);
 	}
+
+	public void testSwitch() {
+		Color c = Color.BLUE;
+
+		int x = 0;
+		switch (c) {
+			case RED:
+				x = 1;
+				break;
+
+			case BLUE:
+				x = 2;
+				break;
+
+			case GREEN:
+				x = 3;
+				break;
+
+			default:
+				x = 4;
+				break;
+		}
+
+		assertTrue(x == 2);
+	}
 }
