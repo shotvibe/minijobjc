@@ -124,8 +124,8 @@ build/jre/%.o : build/jre/%.m
 # ----------------------------------------------------------------------------
 
 TEST_NATIVE_SRCS = \
-		 TestRunner.m
-
+		 TestRunner.m \
+		 HelloNativeTest.m \
 
 TEST_NATIVE_OBJS = $(TEST_NATIVE_SRCS:%.m=build/test/native/%.o)
 
