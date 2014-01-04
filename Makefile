@@ -130,6 +130,7 @@ TEST_NATIVE_SRCS = \
 TEST_NATIVE_OBJS = $(TEST_NATIVE_SRCS:%.m=build/test/native/%.o)
 
 TEST_JAVA_SRCS = \
+		 ArrayTest.java \
 		 EnumTest.java \
 		 ExceptionHandlingTest.java \
 		 HelloTest.java \
