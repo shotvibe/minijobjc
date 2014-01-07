@@ -31,6 +31,7 @@ CLANG_LINK_FLAGS = -framework Foundation
 
 clean :
 	rm -rf build
+	rm -rf minijobjc_dist
 
 # ----------------------------------------------------------------------------
 # The Mini Runtime
@@ -99,6 +100,10 @@ RUNTIME_JRE_FILES = $(RUNTIME_JRE_SRCS:%.java=src/jre/%.java)
 
 RUNTIME_JRE_OBJS = $(RUNTIME_JRE_SRCS:%.java=build/jre/%.o)
 
+RUNTIME_JRE_DIST_HEADERS = $(RUNTIME_JRE_SRCS:%.java=minijobjc_dist/%.h)
+
+RUNTIME_JRE_DIST_SRCS = $(RUNTIME_JRE_SRCS:%.java=minijobjc_dist/%.m)
+
 build/objc-sync.o : src/objc-sync.m
 	@mkdir -p build
 	$(CLANG) -c $(CLANG_FLAGS) -fno-objc-arc -Iinclude $< -o $@
@@ -121,6 +126,24 @@ build/jre/%.m : build/.j_codegen
 
 build/jre/%.o : build/jre/%.m
 	$(CLANG) -c $(CLANG_FLAGS) -Ibuild -Ibuild/jre -Iinclude $< -o $@
+
+# ----------------------------------------------------------------------------
+# minijobjc_dist
+# ----------------------------------------------------------------------------
+
+.PHONY : minijobjc_dist
+
+minijobjc_dist/%.h : build/jre/%.h
+	@mkdir -p minijobjc_dist/`dirname $< | sed 's%^build/jre/%%'`
+	@cp -v $< minijobjc_dist/`dirname $< | sed 's%^build/jre/%%'`
+
+minijobjc_dist/%.m : build/jre/%.m
+	@mkdir -p minijobjc_dist/`dirname $< | sed 's%^build/jre/%%'`
+	@cp -v $< minijobjc_dist/`dirname $< | sed 's%^build/jre/%%'`
+
+minijobjc_dist : build/.j_codegen $(RUNTIME_JRE_DIST_HEADERS) $(RUNTIME_JRE_DIST_SRCS)
+	@cp -rv include/* minijobjc_dist/
+	@cp -v src/*.m minijobjc_dist/
 
 # ----------------------------------------------------------------------------
 # Test
