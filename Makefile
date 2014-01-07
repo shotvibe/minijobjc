@@ -17,13 +17,14 @@ all : \
 CLANG = clang
 LIBTOOL = libtool
 J2OBJC ?= j2objc
+J2OBJCBUILD = ./j2objcbuild.py
 
 check_requirements : J2OBJC_exists
 
 J2OBJC_exists :
 	@which $(J2OBJC) > /dev/null || (echo "j2objc executable not found. set the J2OBJC environment var" ; false)
 
-J2OBJC_FLAGS = -use-arc
+J2OBJCBUILD_FLAGS = -j -use-arc
 CLANG_FLAGS = -fobjc-arc
 CLANG_LINK_FLAGS = -framework Foundation
 
@@ -109,8 +110,10 @@ build/%.o : src/%.m src/* build/.j_codegen
 build/minijobjc.a : $(RUNTIME_OBJS) $(RUNTIME_JRE_OBJS) build/objc-sync.o
 	$(LIBTOOL) -static -o $@ $^
 
+.PHONY : build/.j_codegen
+
 build/.j_codegen : $(RUNTIME_JRE_FILES)
-	$(J2OBJC) $(J2OBJC_FLAGS) -d build/jre $(RUNTIME_JRE_FILES)
+	$(J2OBJCBUILD) $(J2OBJCBUILD_FLAGS) --output-dir=build/jre src/jre
 	@touch build/.j_codegen
 
 build/jre/%.m : build/.j_codegen
@@ -146,8 +149,10 @@ build/test/native/%.o : test/native/%.m test/native/* build/.test_codegen
 	@mkdir -p build/test/native
 	$(CLANG) -c $(CLANG_FLAGS) -Iinclude -Ibuild -Ibuild/jre $< -o $@
 
+.PHONY : build/.test_codegen
+
 build/.test_codegen : $(TEST_JAVA_FILES)
-	$(J2OBJC) $(J2OBJC_FLAGS) -d build $(TEST_JAVA_FILES)
+	$(J2OBJCBUILD) $(J2OBJCBUILD_FLAGS) --output-dir=build test
 	@touch build/.test_codegen
 
 .SECONDARY :
