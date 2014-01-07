@@ -62,6 +62,7 @@ RUNTIME_SRCS = \
 	       JreMemDebug.m \
 	       JreMemDebugStrongReference.m \
 	       NSObject+JavaObject.m \
+	       NSString+JavaString.m \
 
 RUNTIME_OBJS = $(RUNTIME_SRCS:%.m=build/%.o)
 

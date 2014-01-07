@@ -99,24 +99,32 @@ destinationBegin:(int)dstBegin;
                        length:(NSUInteger)length;
 
 // String(byte[], String)
+/*
 + (NSString *)stringWithBytes:(IOSByteArray *)value
                   charsetName:(NSString *)charsetName;
+*/
 
 // String(byte[], Charset)
+/*
 + (NSString *)stringWithBytes:(IOSByteArray *)value
                   charset:(JavaNioCharsetCharset *)charset;
+*/
 
 // String(byte[], int, int, String)
+/*
 + (NSString *)stringWithBytes:(IOSByteArray *)value
                        offset:(int)offset
                        length:(int)count
               charsetName:(NSString *)charsetName;
+*/
 
 // String(byte[], int, int, Charset)
+/*
 + (NSString *)stringWithBytes:(IOSByteArray *)value
                        offset:(int)offset
                        length:(int)count
                   charset:(JavaNioCharsetCharset *)charset;
+*/
 
 + (NSString *)stringWithBytes:(IOSByteArray *)value
                        offset:(int)offset
@@ -142,10 +150,14 @@ destinationBegin:(int)dstBegin;
                       length:(int)length;
 
 // String(StringBuffer)
+/*
 + (NSString *)stringWithJavaLangStringBuffer:(JavaLangStringBuffer *)sb;
+*/
 
 // String(StringBuilder)
+/*
 + (NSString *)stringWithJavaLangStringBuilder:(JavaLangStringBuilder *)sb;
+*/
 
 // String.substring(int)
 - (NSString *)substring:(int)beginIndex;
@@ -222,10 +234,14 @@ destinationBegin:(int)dstBegin;
 - (IOSByteArray *)getBytes;
 
 // String.getBytes(String)
+/*
 - (IOSByteArray *)getBytesWithCharsetName:(NSString *)charsetName;
+*/
 
 // String.getBytes(Charset)
+/*
 - (IOSByteArray *)getBytesWithCharset:(JavaNioCharsetCharset *)charset;
+*/
 
 - (IOSByteArray *)getBytesWithEncoding:(NSStringEncoding)encoding;
 
@@ -236,10 +252,12 @@ destinationBegin:(int)dstBegin;
                 withDstBegin:(int)dstBegin;
 
 // String.format(String, ...), String.format(Locale, String, ...)
+/*
 + (NSString *)formatWithNSString:(NSString *)format withNSObjectArray:(IOSObjectArray *)args;
 + (NSString *)formatWithJavaUtilLocale:(JavaUtilLocale *)locale
                           withNSString:(NSString *)format
                      withNSObjectArray:(IOSObjectArray *)args;
+*/
 
 // String.startsWith(String, int)
 - (BOOL)hasPrefix:(NSString *)aString offset:(int)offset;
@@ -248,14 +266,18 @@ destinationBegin:(int)dstBegin;
 - (NSString *)trim;
 
 // String.split(String)
+/*
 - (IOSObjectArray *)split:(NSString *)str;
+*/
 
 // String equalsIgnoreCase(String)
 - (BOOL)equalsIgnoreCase:(NSString *)aString;
 
 // String.toLowerCase(Locale), toUpperCase(Locale)
+/*
 - (NSString *)lowercaseStringWithJRELocale:(JavaUtilLocale *)locale;
 - (NSString *)uppercaseStringWithJRELocale:(JavaUtilLocale *)locale;
+*/
 
 // String.regionMatches(...)
 - (BOOL)regionMatches:(int)thisOffset
@@ -284,16 +306,22 @@ destinationBegin:(int)dstBegin;
 - (int)codePointCount:(int)beginIndex endIndex:(int)endIndex;
 
 // String.matches(), split(String, int)
+/*
 - (BOOL)matches:(NSString *)regex;
 - (IOSObjectArray *)split:(NSString *)regex limit:(int)limit;
+*/
 
 // String.contentEquals(CharSequence), contentEquals(StringBuffer)
 - (BOOL)contentEqualsCharSequence:(id<JavaLangCharSequence>)seq;
+/*
 - (BOOL)contentEqualsStringBuffer:(JavaLangStringBuffer *)sb;
+*/
 
 // String.offsetByCodePoints(int, int)
 
+/*
 + (id<JavaUtilComparator>)CASE_INSENSITIVE_ORDER;
+*/
 
 @end
 

@@ -37,10 +37,11 @@
 //#import "java/nio/charset/UnsupportedCharsetException.h"
 //#import "java/util/Comparator.h"
 //#import "java/util/Formatter.h"
-#import "java/util/Locale.h"
-#import "java/util/regex/Pattern.h"
-#import "java/util/regex/PatternSyntaxException.h"
+//#import "java/util/Locale.h"
+//#import "java/util/regex/Pattern.h"
+//#import "java/util/regex/PatternSyntaxException.h"
 
+/*
 @interface CaseInsensitiveComparator :
     NSObject < JavaUtilComparator, JavaIoSerializable > {
 }
@@ -49,6 +50,7 @@
 
 + (id<JavaUtilComparator>)CASE_INSENSITIVE_ORDER;
 @end
+*/
 
 @implementation NSString (JavaString)
 
@@ -234,16 +236,20 @@ destinationBegin:(int)destinationBegin {
   return result;
 }
 
+/*
 + (NSString *)stringWithJavaLangStringBuffer:(JavaLangStringBuffer *)sb {
   return [sb sequenceDescription];
 }
+*/
 
+/*
 + (NSString *)stringWithJavaLangStringBuilder:(JavaLangStringBuilder *)sb {
   if (!sb) {
     @throw makeException([JavaLangNullPointerException class]);
   }
   return [sb sequenceDescription];
 }
+*/
 
 - (int)compareToWithId:(id)another {
   if (!another) {
@@ -449,6 +455,7 @@ destinationBegin:(int)destinationBegin {
                encoding:encoding];
 }
 
+/*
 + (NSString *)stringWithBytes:(IOSByteArray *)value
                   charsetName:(NSString *)charsetName {
   return [self stringWithBytes:value
@@ -456,7 +463,9 @@ destinationBegin:(int)destinationBegin {
                         length:[value count]
                    charsetName:charsetName];
 }
+*/
 
+/*
 + (NSString *)stringWithBytes:(IOSByteArray *)value
                       charset:(JavaNioCharsetCharset *)charset {
   return [self stringWithBytes:value
@@ -464,7 +473,9 @@ destinationBegin:(int)destinationBegin {
                         length:[value count]
                        charset:charset];
 }
+*/
 
+/*
 NSStringEncoding parseCharsetName(NSString *charset) {
   NSStringEncoding nsEncoding = NSUTF8StringEncoding; // defaults to UTF-8
   if (charset) {
@@ -483,6 +494,7 @@ NSStringEncoding parseCharsetName(NSString *charset) {
   }
   return nsEncoding;
 }
+*/
 
 + (NSString *)stringWithBytes:(IOSByteArray *)value
                        hibyte:(int)hibyte {
@@ -502,6 +514,7 @@ NSStringEncoding parseCharsetName(NSString *charset) {
                       encoding:NSUTF8StringEncoding];
 }
 
+/*
 + (NSString *)stringWithBytes:(IOSByteArray *)value
                        offset:(int)offset
                        length:(int)count
@@ -512,7 +525,9 @@ NSStringEncoding parseCharsetName(NSString *charset) {
                             length:count
                       encoding:encoding];
 }
+*/
 
+/*
 + (NSString *)stringWithBytes:(IOSByteArray *)value
                        offset:(int)offset
                        length:(int)count
@@ -528,6 +543,7 @@ NSStringEncoding parseCharsetName(NSString *charset) {
                             length:count
                           encoding:encoding];
 }
+*/
 
 + (NSString *)stringWithBytes:(IOSByteArray *)value
                        hibyte:(NSUInteger)hibyte
@@ -613,6 +629,7 @@ NSStringEncoding parseCharsetName(NSString *charset) {
   return [self getBytesWithEncoding:NSUTF8StringEncoding];
 }
 
+/*
 - (IOSByteArray *)getBytesWithCharsetName:(NSString *)charsetName {
   if (!charsetName) {
     @throw makeException([JavaLangNullPointerException class]);
@@ -620,7 +637,9 @@ NSStringEncoding parseCharsetName(NSString *charset) {
   NSStringEncoding encoding = parseCharsetName(charsetName);
   return [self getBytesWithEncoding:encoding];
 }
+*/
 
+/*
 - (IOSByteArray *)getBytesWithCharset:(JavaNioCharsetCharset *)charset {
   nil_chk(charset);
   if (![charset isKindOfClass:[JavaNioCharsetIOSCharset class]]) {
@@ -631,6 +650,7 @@ NSStringEncoding parseCharsetName(NSString *charset) {
   NSStringEncoding encoding = (NSStringEncoding) [iosCharset nsEncoding];
   return [self getBytesWithEncoding:encoding];
 }
+*/
 
 - (IOSByteArray *)getBytesWithEncoding:(NSStringEncoding)encoding  {
   if (!encoding) {
@@ -703,13 +723,16 @@ NSStringEncoding parseCharsetName(NSString *charset) {
   free(bytes);
 }
 
+/*
 + (NSString *)formatWithNSString:(NSString *)format withNSObjectArray:(IOSObjectArray *)args {
   JavaUtilFormatter *formatter = [[JavaUtilFormatter alloc] init];
   NSString *result = [[formatter formatWithNSString:format withNSObjectArray:args] description];
   RELEASE_(formatter);
   return result;
 }
+*/
 
+/*
 + (NSString *)formatWithJavaUtilLocale:(JavaUtilLocale *)locale
                           withNSString:(NSString *)format
                      withNSObjectArray:(IOSObjectArray *)args {
@@ -717,6 +740,7 @@ NSStringEncoding parseCharsetName(NSString *charset) {
       AUTORELEASE([[JavaUtilFormatter alloc] initWithJavaUtilLocale:locale]);
   return [[formatter formatWithNSString:format withNSObjectArray:args] description];
 }
+*/
 
 - (BOOL)hasPrefix:(NSString *)aString offset:(int)offset {
   if (!aString) {
@@ -733,13 +757,16 @@ NSStringEncoding parseCharsetName(NSString *charset) {
           [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
+/*
 - (IOSObjectArray *)split:(NSString *)str {
   if (!str) {
     @throw makeException([JavaLangNullPointerException class]);
   }
   return [self split:str limit:0];
 }
+*/
 
+/*
 - (IOSObjectArray *)split:(NSString *)str limit:(int)n {
   if (!str) {
     @throw makeException([JavaLangNullPointerException class]);
@@ -747,6 +774,7 @@ NSStringEncoding parseCharsetName(NSString *charset) {
   JavaUtilRegexPattern *p = [JavaUtilRegexPattern compileWithNSString:str];
   return [p splitWithJavaLangCharSequence:self withInt:n];
 }
+*/
 
 - (BOOL)equalsIgnoreCase:(NSString *)aString {
   NSComparisonResult result =
@@ -754,6 +782,7 @@ NSStringEncoding parseCharsetName(NSString *charset) {
   return result == NSOrderedSame;
 }
 
+/*
 - (NSString *)lowercaseStringWithJRELocale:(JavaUtilLocale *)javaLocale {
   if (!javaLocale) {
     @throw makeException([JavaLangNullPointerException class]);
@@ -773,7 +802,9 @@ NSStringEncoding parseCharsetName(NSString *charset) {
 #endif
   return result;
 }
+*/
 
+/*
 - (NSString *)uppercaseStringWithJRELocale:(JavaUtilLocale *)javaLocale {
   if (!javaLocale) {
     @throw makeException([JavaLangNullPointerException class]);
@@ -793,6 +824,7 @@ NSStringEncoding parseCharsetName(NSString *charset) {
 #endif
   return result;
 }
+*/
 
 - (BOOL)regionMatches:(int)thisOffset
               aString:(NSString *)aString
@@ -872,6 +904,7 @@ NSStringEncoding parseCharsetName(NSString *charset) {
                                                            withInt:endIndex];
 }
 
+/*
 - (BOOL)matches:(NSString *)regex {
   if (!regex) {
     @throw makeException([JavaLangNullPointerException class]);
@@ -897,28 +930,35 @@ NSStringEncoding parseCharsetName(NSString *charset) {
                                     range:NSMakeRange(0, [self length])];
   return result != nil;
 }
+*/
 
 - (BOOL)contentEqualsCharSequence:(id<JavaLangCharSequence>)seq {
   return [self isEqualToString:[(id) seq description]];
 }
 
+/*
 - (BOOL)contentEqualsStringBuffer:(JavaLangStringBuffer *)sb {
   return [self isEqualToString:[sb description]];
 }
+*/
 
+/*
 + (id<JavaUtilComparator>)CASE_INSENSITIVE_ORDER {
   // Use accessor to force comparator's class initialization
   return [CaseInsensitiveComparator CASE_INSENSITIVE_ORDER];
 }
+*/
 
 + (long long int)serialVersionUID {
   return -6849794470754667710L;
 }
 
+/*
 + (IOSObjectArray *)serialPersistentFields {
   return [IOSObjectArray arrayWithLength:0
                                     type:[IOSClass classWithClass:[JavaIoObjectStreamField class]]];
 }
+*/
 
 + (J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
@@ -980,6 +1020,7 @@ NSStringEncoding parseCharsetName(NSString *charset) {
 
 @end
 
+/*
 @implementation CaseInsensitiveComparator
 
 static id<JavaUtilComparator> CaseInsensitiveComparator_CASE_INSENSITIVE_ORDER_;
@@ -1024,3 +1065,4 @@ static id<JavaUtilComparator> CaseInsensitiveComparator_CASE_INSENSITIVE_ORDER_;
 }
 
 @end
+*/
