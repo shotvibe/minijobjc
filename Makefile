@@ -87,9 +87,9 @@ RUNTIME_JRE_SRCS = \
 		    java/lang/InternalError.java \
 		    java/lang/Long.java \
 		    java/lang/NullPointerException.java \
-		    java/lang/Reflect/GenericDeclaration.java \
-		    java/lang/Reflect/Type.java \
-		    java/lang/Reflect/TypeVariable.java \
+		    java/lang/reflect/GenericDeclaration.java \
+		    java/lang/reflect/Type.java \
+		    java/lang/reflect/TypeVariable.java \
 		    java/lang/RuntimeException.java \
 		    java/lang/Short.java \
 		    java/lang/StackTraceElement.java \
