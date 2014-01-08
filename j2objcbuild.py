@@ -31,7 +31,47 @@ def is_file_newer(source_file, target_file):
     return source_modification >= target_modification
 
 
-if __name__ == "__main__":
+def build(j2objc_exe, j2objc_opts, input_dir, output_dir, no_package_directories=False):
+    java_files = find_java_files(input_dir)
+
+    newer_source_files = []
+
+    for f in java_files:
+        source_file = os.path.join(input_dir, f)
+
+        no_ext = os.path.splitext(f)[0]
+        target_file_h = os.path.join(output_dir, no_ext) + ".h"
+        target_file_m = os.path.join(output_dir, no_ext) + ".m"
+
+        if no_package_directories:
+            target_file_h = os.path.join(output_dir, os.path.basename(target_file_h))
+            target_file_m = os.path.join(output_dir, os.path.basename(target_file_h))
+
+        if is_file_newer(source_file, target_file_h) \
+                or is_file_newer(source_file, target_file_m):
+            newer_source_files.append(source_file)
+
+    if not newer_source_files:
+        print("No changes")
+        sys.exit(0)
+
+    command = [j2objc_exe]
+    command += j2objc_opts
+
+    if no_package_directories:
+        command += ["--no-package-directories"]
+
+    command += ["-sourcepath", input_dir]
+
+    command += ["-d", output_dir]
+    command += newer_source_files
+
+    result = subprocess.call(command)
+
+    sys.exit(result)
+
+
+def main():
     usage = "usage: %prog [OPTIONS] [-j OPT [-j OPT [..]]] [--output-dir=DIR] INPUT_DIR"
     parser = optparse.OptionParser(usage=usage)
 
@@ -62,49 +102,16 @@ if __name__ == "__main__":
         parser.error("You must supply a single input directory")
 
     input_dir = args[0]
-    output_dir = options.output_dir
 
     if not os.path.isdir(input_dir):
         parser.error(options.input_dir + " is not a directory")
 
-    j2objc_exe = os.environ.get("J2OBJC", "j2objc")
+    build(j2objc_exe=os.environ.get("J2OBJC", "j2objc"),
+          j2objc_opts=options.j2objc_opts,
+          input_dir=input_dir,
+          output_dir=options.output_dir,
+          no_package_directories=options.no_package_directories)
 
-    # Command line parsing is done, begin the work!
 
-    java_files = find_java_files(input_dir)
-
-    newer_source_files = []
-
-    for f in java_files:
-        source_file = os.path.join(input_dir, f)
-
-        no_ext = os.path.splitext(f)[0]
-        target_file_h = os.path.join(output_dir, no_ext) + ".h"
-        target_file_m = os.path.join(output_dir, no_ext) + ".m"
-
-        if options.no_package_directories:
-            target_file_h = os.path.join(output_dir, os.path.basename(target_file_h))
-            target_file_m = os.path.join(output_dir, os.path.basename(target_file_h))
-
-        if is_file_newer(source_file, target_file_h) \
-                or is_file_newer(source_file, target_file_m):
-            newer_source_files.append(source_file)
-
-    if not newer_source_files:
-        print("No changes")
-        sys.exit(0)
-
-    command = [j2objc_exe]
-    command += options.j2objc_opts
-
-    if options.no_package_directories:
-        command += ["--no-package-directories"]
-
-    command += ["-sourcepath", input_dir]
-
-    command += ["-d", output_dir]
-    command += newer_source_files
-
-    result = subprocess.call(command)
-
-    sys.exit(result)
+if __name__ == "__main__":
+    main()
