@@ -32,6 +32,16 @@ def is_file_newer(source_file, target_file):
 
 
 def build(j2objc_exe, j2objc_opts, input_dir, output_dir, no_package_directories=False):
+    """
+    Returns a 2 sized tuple:
+
+    * First element is the number of changed source files.
+    * Second element is the return value from the j2objc command. 0 indicates
+      success.
+
+    If no source files have changed, will not perform any build and will always
+    return (0, 0)
+    """
     java_files = find_java_files(input_dir)
 
     newer_source_files = []
@@ -52,8 +62,7 @@ def build(j2objc_exe, j2objc_opts, input_dir, output_dir, no_package_directories
             newer_source_files.append(source_file)
 
     if not newer_source_files:
-        print("No changes")
-        sys.exit(0)
+        return (0, 0)
 
     command = [j2objc_exe]
     command += j2objc_opts
@@ -68,7 +77,7 @@ def build(j2objc_exe, j2objc_opts, input_dir, output_dir, no_package_directories
 
     result = subprocess.call(command)
 
-    sys.exit(result)
+    return (len(newer_source_files), result)
 
 
 def main():
@@ -106,11 +115,16 @@ def main():
     if not os.path.isdir(input_dir):
         parser.error(options.input_dir + " is not a directory")
 
-    build(j2objc_exe=os.environ.get("J2OBJC", "j2objc"),
-          j2objc_opts=options.j2objc_opts,
-          input_dir=input_dir,
-          output_dir=options.output_dir,
-          no_package_directories=options.no_package_directories)
+    num, return_val = build(j2objc_exe=os.environ.get("J2OBJC", "j2objc"),
+                            j2objc_opts=options.j2objc_opts,
+                            input_dir=input_dir,
+                            output_dir=options.output_dir,
+                            no_package_directories=options.no_package_directories)
+
+    if num == 0:
+        print("No changes")
+
+    return return_val
 
 
 if __name__ == "__main__":
