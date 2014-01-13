@@ -55,6 +55,7 @@ RUNTIME_SRCS = \
 	       IOSProtocolClass.m \
 	       IOSReflection.m \
 	       IOSShortArray.m \
+	       JavaLangIterable.m \
 	       JavaLangReflectTypeVariableImpl.m \
 	       JavaLangThrowable.m \
 	       JavaMetadata.m \
@@ -89,13 +90,17 @@ RUNTIME_JRE_SRCS = \
 		    java/lang/InternalError.java \
 		    java/lang/Long.java \
 		    java/lang/NullPointerException.java \
-		    java/lang/reflect/GenericDeclaration.java \
-		    java/lang/reflect/Type.java \
-		    java/lang/reflect/TypeVariable.java \
 		    java/lang/RuntimeException.java \
 		    java/lang/Short.java \
 		    java/lang/StackTraceElement.java \
 		    java/lang/StringIndexOutOfBoundsException.java \
+		    java/lang/reflect/GenericDeclaration.java \
+		    java/lang/reflect/Type.java \
+		    java/lang/reflect/TypeVariable.java \
+		    java/util/Collection.java \
+		    java/util/Iterator.java \
+		    java/util/List.java \
+		    java/util/ListIterator.java \
 
 RUNTIME_JRE_FILES = $(RUNTIME_JRE_SRCS:%.java=src/jre/%.java)
 
