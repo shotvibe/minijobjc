@@ -101,6 +101,8 @@ RUNTIME_JRE_SRCS = \
 		    java/util/Iterator.java \
 		    java/util/List.java \
 		    java/util/ListIterator.java \
+		    java/util/Map.java \
+		    java/util/Set.java \
 
 RUNTIME_JRE_FILES = $(RUNTIME_JRE_SRCS:%.java=src/jre/%.java)
 
