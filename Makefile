@@ -94,6 +94,7 @@ RUNTIME_JRE_SRCS = \
 		    java/lang/Short.java \
 		    java/lang/StackTraceElement.java \
 		    java/lang/StringIndexOutOfBoundsException.java \
+		    java/lang/Void.java \
 		    java/lang/reflect/GenericDeclaration.java \
 		    java/lang/reflect/Type.java \
 		    java/lang/reflect/TypeVariable.java \
